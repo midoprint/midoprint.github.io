@@ -3,36 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <title>미도인쇄</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { font-family: 'Noto Sans KR', sans-serif; background: #f4f4f4; margin: 0; }
-        header { background: #2b2d42; color: #fff; padding: 2rem 0; text-align: center; }
-        main { max-width: 800px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 8px #0001; }
-        h1 { margin: 0 0 0.5em 0; }
-        .contact { margin-top: 2em; }
-        footer { text-align: center; color: #888; padding: 1em 0; margin-top: 2em; }
+        body { margin: 0; }
+        header {
+            background: #f5efe6;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-sizing: border-box;
+            border-bottom: 1.5px solid #e0e0e0;
+            border-top: 1.5px solid #e0e0e0;
+        }
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo {
+            font-family: "Hi Melody", sans-serif;
+            font-weight: lighter;
+            font-size: 2rem;
+            letter-spacing: 0.1em;
+            color: #393E46;
+        }
+        nav {
+            display: flex;
+            gap: 36px;
+        }
+        .menu-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        nav a {
+            text-decoration: none;
+            color: #222;
+            font-size: 1.15rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.2s;
+            padding: 6px 0;
+            z-index: 2;
+        }
+        nav a::after {
+            content: "";
+            display: block;
+            height: 2.5px;
+            background: black;
+            border-radius: 2px;
+            width: 0%;
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        nav a:hover,
+        nav a.active {
+            color: black;
+        }
+        nav a.active::after,
+        nav a:hover::after {
+            width: 100%;
+        }
+        /* 서브메뉴 애니메이션 */
+        .submenu {
+            display: block;
+            opacity: 0;
+            transform: translateY(-15px);
+            pointer-events: none;
+            position: absolute;
+            top: 110%;
+            left: 0;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-radius: 6px;
+            min-width: 140px;
+            padding: 8px 0;
+            z-index: 10;
+            transition: opacity 0.28s cubic-bezier(0.4,0,0.2,1), transform 0.28s cubic-bezier(0.4,0,0.2,1);
+        }
+        .submenu li {
+            list-style: none;
+        }
+        .submenu a {
+            padding: 8px 20px;
+            font-size: 1rem;
+            color: #222;
+            display: block;
+            white-space: nowrap;
+            border-radius: 0;
+            background: none;
+        }
+        .submenu a:hover {
+            background: #f5efe6;
+            color: #393E46;
+        }
+        .menu-item:hover .submenu,
+        .menu-item:focus-within .submenu {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 16px 10px;
+            }
+            nav {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+            .logo {
+                margin-bottom: 10px;
+                font-size: 1.4rem;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>미도인쇄</h1>
-        <p>고객의 인쇄, 우리의 정성으로!</p>
-    </header>
-    <main>
-        <h2>서비스 안내</h2>
-        <ul>
-            <li>명함, 전단지, 스티커, 봉투 등 다양한 인쇄물 제작</li>
-            <li>디자인 상담 및 맞춤 견적 제공</li>
-            <li>빠르고 정확한 납기</li>
-        </ul>
-        <div class="contact">
-            <h2>문의하기</h2>
-            <p>이메일: <a href="mailto:midoprint@example.com">midoprint@example.com</a></p>
-            <p>전화: 010-1234-5678</p>
+        <div class="logo-group">
+            <span class="logo">MIDOPRINT</span>
         </div>
-    </main>
-    <footer>
-        &copy; 2025 미도인쇄. All rights reserved.
-    </footer>
+        <nav>
+            <div class="menu-item">
+                <a href="e" target="_blank">바코드라벨</a>
+                <ul class="submenu">
+                    <li><a href="#">일반 바코드</a></li>
+                    <li><a href="#">QR 바코드</a></li>
+                    <li><a href="#">시리얼넘버</a></li>
+                </ul>
+            </div>
+            <div class="menu-item"><a href="a" target="_blank">컬러스티커</a></div>
+            <div class="menu-item"><a href="b" target="_blank">적색스티커</a></div>
+            <div class="menu-item"><a href="c" target="_blank">인쇄</a></div>
+            <div class="menu-item"><a href="d" target="_blank">꼬리표</a></div>
+            <div class="menu-item"><a href="v" target="_blank">특수인쇄</a></div>
+        </nav>
+    </header>
 </body>
 </html>
