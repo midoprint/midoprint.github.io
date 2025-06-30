@@ -2,148 +2,509 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>미도인쇄</title>
+    <title>MIDOPRINT</title>
     <style>
-        body { margin: 0; }
-        header {
+        body {margin:0;background:#fff;}
+        /* HEADER */
+        .header-area {
+            width: 100%;
             background: #f5efe6;
-            height: 64px;
+            border-bottom: 1.5px solid #e0e0e0;
+        }
+        .header-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 40px;
-            box-sizing: border-box;
-            border-bottom: 1.5px solid #e0e0e0;
-            border-top: 1.5px solid #e0e0e0;
+            padding: 0 32px;
         }
         .logo-group {
             display: flex;
             align-items: center;
             gap: 10px;
         }
+        .logo-hanja {
+            font-family: 'Noto Serif KR', 'Nanum Myeongjo', serif;
+            font-size: 2.3rem;
+            color: #2466e8;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+        }
         .logo {
-            font-family: "Hi Melody", sans-serif;
-            font-weight: lighter;
+            font-weight: bold;
             font-size: 2rem;
-            letter-spacing: 0.1em;
-            color: #393E46;
+            letter-spacing: 0.15em;
+            color: #222;
+        }
+        /* NAVIGATION BAR */
+        .nav-area {
+            width: 100%;
+            background: #0046d3;
+            position: relative;
         }
         nav {
             display: flex;
-            gap: 36px;
+            justify-content: center;
+            align-items: center;
+            height: 56px;
+            position: relative;
+            margin-right: 150px;
+            margin-left: 150px;
         }
         .menu-item {
             position: relative;
+            flex: 1 1 0;
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            justify-content: center;
+            min-width: 0;
         }
-        nav a {
-            text-decoration: none;
-            color: #222;
-            font-size: 1.15rem;
+        .menu-link {
+            display: block;
+            color: #fff;
+            font-size: 1.1rem;
             font-weight: 500;
-            position: relative;
-            transition: color 0.2s;
-            padding: 6px 0;
-            z-index: 2;
-        }
-        nav a::after {
-            content: "";
-            display: block;
-            height: 2.5px;
-            background: black;
-            border-radius: 2px;
-            width: 0%;
-            position: absolute;
-            left: 0;
-            bottom: -4px;
-            transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
-        }
-        nav a:hover,
-        nav a.active {
-            color: black;
-        }
-        nav a.active::after,
-        nav a:hover::after {
             width: 100%;
+            text-align: center;
+            padding: 0 0;
+            line-height: 56px;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+            box-sizing: border-box;
         }
-        /* 서브메뉴 애니메이션 */
-        .submenu {
-            display: block;
-            opacity: 0;
-            transform: translateY(-15px);
-            pointer-events: none;
-            position: absolute;
-            top: 110%;
-            left: 0;
+        .menu-link:hover {
             background: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border-radius: 6px;
-            min-width: 140px;
-            padding: 8px 0;
-            z-index: 10;
-            transition: opacity 0.28s cubic-bezier(0.4,0,0.2,1), transform 0.28s cubic-bezier(0.4,0,0.2,1);
+            color: #0046d3;
         }
-        .submenu li {
-            list-style: none;
-        }
-        .submenu a {
-            padding: 8px 20px;
-            font-size: 1rem;
-            color: #222;
-            display: block;
-            white-space: nowrap;
-            border-radius: 0;
+        /* SUBMENU - FULL WIDTH WHITE BOX */
+        .submenu-wrapper {
+            display: none;
+            position: absolute;
+            top: 100%;
+            width: 100%;
             background: none;
+            z-index: 100;
+            pointer-events: none;
+            left: 0;
         }
-        .submenu a:hover {
-            background: #f5efe6;
-            color: #393E46;
+        .submenu-box {
+            width: 100%;
+            min-height: 70px;
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+            border-radius: 0 0 8px 8px;
+            padding: 30px 0 30px 0;
+            position: relative;
+            margin: 0 auto;
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
         }
-        .menu-item:hover .submenu,
-        .menu-item:focus-within .submenu {
-            opacity: 1;
-            transform: translateY(0);
+        /* hover 트리거 (nav, submenu-wrapper에 동시에 hover 시 유지) */
+        nav:hover .submenu-wrapper,
+        nav:focus-within .submenu-wrapper,
+        .submenu-wrapper:hover,
+        .submenu-wrapper:focus-within {
+            display: block;
             pointer-events: auto;
         }
-        @media (max-width: 700px) {
-            header {
-                flex-direction: column;
+        .submenu-inner {
+            max-width: 1200px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 150px;
+            margin-left: 50px;
+        }
+        .submenu-section {
+            display: none;
+        }
+        .submenu-section.active {
+            display: block;
+        }
+        .submenu-link {
+            text-decoration: none;
+            color: #0046d3;
+            font-weight: 600;
+            font-size: 1.08rem;
+            padding: 0 14px;
+            transition: color 0.15s;
+            white-space: nowrap;
+        }
+        .submenu-link:hover {
+            color: #f30000;
+        }
+
+        /* SLIDER STYLE */
+        .slider-area {
+            width: 100vw;
+            max-width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+            height: 540px;
+            background: #74cbfb;
+        }
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        .slide.active {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+        .slide-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            padding: 0 8vw;
+            background: transparent; /* 배경은 slider-area에서 지정 */
+            transition: background 0.3s;
+        }
+        .slide-text {
+            color: #fff;
+            font-size: 2.6rem;
+            font-weight: 500;
+            line-height: 1.1;
+            max-width: 540px;
+            min-width: 350px;
+        }
+        .slide-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 350px;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.4rem;
+            color: #fff;
+            background: rgba(0,0,0,0.1);
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.2s;
+            user-select: none;
+        }
+        .slider-btn:hover {
+            background: rgba(0,0,0,0.35);
+        }
+        .slider-btn.prev { left: 3vw; }
+        .slider-btn.next { right: 3vw; }
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 26px;
+            left: 0; right: 0;
+            z-index: 10;
+            gap: 12px;
+        }
+        .slider-dot {
+            width: 13px;
+            height: 13px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: background 0.2s;
+        }
+        .slider-dot.active {
+            background: #fff;
+            box-shadow: 0 0 3px #888;
+        }
+        @media (max-width: 900px) {
+            .header-inner {
                 height: auto;
+                flex-direction: column;
                 padding: 16px 10px;
-            }
-            nav {
-                gap: 20px;
-                flex-wrap: wrap;
+                gap: 8px;
             }
             .logo {
-                margin-bottom: 10px;
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
+            .logo-hanja {
+                font-size: 1.5rem;
+            }
+            nav {
+                height: 48px;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .submenu-wrapper {
+                transform: none;
+                width: 100vw;
+            }
+            .submenu-box {
+                width: 100vw;
+                padding: 20px 0;
+            }
+            .submenu-inner {
+                gap: 24px;
+            }
+            .slider-area { height: 340px; }
+            .slide-content { flex-direction: column; align-items: flex-start; padding: 0 5vw; }
+            .slide-image { min-width: 200px; }
+            .slide-text { font-size: 1.2rem; min-width: 0; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo-group">
-            <span class="logo">MIDOPRINT</span>
-        </div>
-        <nav>
-            <div class="menu-item">
-                <a href="e" target="_blank">바코드라벨</a>
-                <ul class="submenu">
-                    <li><a href="#">일반 바코드</a></li>
-                    <li><a href="#">QR 바코드</a></li>
-                    <li><a href="#">시리얼넘버</a></li>
-                </ul>
+    <!-- 헤더 영역 -->
+    <div class="header-area">
+        <div class="header-inner">
+            <div class="logo-group">
+                <span class="logo-hanja">美</span>
+                <span class="logo">미도인쇄</span>
             </div>
-            <div class="menu-item"><a href="a" target="_blank">컬러스티커</a></div>
-            <div class="menu-item"><a href="b" target="_blank">적색스티커</a></div>
-            <div class="menu-item"><a href="c" target="_blank">인쇄</a></div>
-            <div class="menu-item"><a href="d" target="_blank">꼬리표</a></div>
-            <div class="menu-item"><a href="v" target="_blank">특수인쇄</a></div>
+        </div>
+    </div>
+    <!-- 네비게이션 영역 -->
+    <div class="nav-area">
+        <nav id="mainNav">
+            <div class="menu-item">
+                <a href="#" class="menu-link">바코드 라벨</a>
+            </div>
+            <div class="menu-item">
+                <a href="#" class="menu-link">컬러스티커</a>
+            </div>
+            <div class="menu-item">
+                <a href="#" class="menu-link">적색스티커</a>
+            </div>
+            <div class="menu-item">
+                <a href="#" class="menu-link">인쇄</a>
+            </div>
+            <div class="menu-item">
+                <a href="#" class="menu-link">꼬리표</a>
+            </div>
+            <div class="menu-item">
+                <a href="#" class="menu-link">특수 인쇄</a>
+            </div>
+            <!-- 서브메뉴를 nav 하단에 한 번만 -->
+            <div class="submenu-wrapper" id="submenuWrapper">
+                <div class="submenu-box">
+                    <div class="submenu-section section-1">
+                        <div class="submenu-inner">
+                            <a href="#" class="submenu-link">무지라벨</a>
+                            <a href="#" class="submenu-link">롤라벨</a>
+                        </div>
+                    </div>
+                    <div class="submenu-section section-2">
+                        <div class="submenu-inner">
+                            <a href="#" class="submenu-link">일반 컬러스티커</a>
+                            <a href="#" class="submenu-link">방수 컬러스티커</a>
+                        </div>
+                    </div>
+                    <div class="submenu-section section-3">
+                        <div class="submenu-inner">
+                            <a href="#" class="submenu-link">일반 적색스티커</a>
+                            <a href="#" class="submenu-link">특수 적색스티커</a>
+                        </div>
+                    </div>
+                    <div class="submenu-section section-4">
+                        <div class="submenu-inner">
+                            <a href="#" class="submenu-link">명함 인쇄</a>
+                            <a href="#" class="submenu-link">책자 인쇄</a>
+                            <a href="#" class="submenu-link">전단 인쇄</a>
+                        </div>
+                    </div>
+                    <div class="submenu-section section-5">
+                        <div class="submenu-inner">
+                            <a href="#" class="submenu-link">소형 꼬리표</a>
+                            <a href="#" class="submenu-link">대형 꼬리표</a>
+                        </div>
+                    </div>
+                    <div class="submenu-section section-6">
+                        <div class="submenu-inner">
+                            <a href="#" class="submenu-link">금박 인쇄</a>
+                            <a href="#" class="submenu-link">은박 인쇄</a>
+                            <a href="#" class="submenu-link">홀로그램 인쇄</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 서브메뉴 끝 -->
         </nav>
-    </header>
+    </div>
+
+    <!-- 슬라이더 영역 nav 아래에 삽입 -->
+    <div class="slider-area">
+      <div class="slider" id="mainSlider">
+        <div class="slide active">
+          <!-- 첫 슬라이드 -->
+          <div class="slide-content">
+            <div class="slide-text">
+              <h2>
+                <span style="font-weight:bold;">소량</span> 제작 가능<br>
+                출고까지 <span style="font-weight:bold;">하루!</span><br>
+                <span style="font-weight:bold;">리플렛 디지털출력</span>
+              </h2>
+              <p style="margin:30px 0 10px 0;">AI, PSD, PDF 파일이 있는 경우에만 가능</p>
+              <p>테라인쇄소에서 만나보세요</p>
+            </div>
+            <div class="slide-image">
+              <img src="slider-img1.png" alt="리플렛 이미지" style="max-width:420px;"/>
+            </div>
+          </div>
+        </div>
+        <div class="slide">
+          <!-- 두 번째 슬라이드 예시 -->
+          <div class="slide-content" style="background:#ffe7a0;">
+            <div class="slide-text" style="color:#0046d3;">
+              <h2>빠른 납기, 고품질 인쇄</h2>
+              <p style="margin:30px 0 10px 0;">당일 출고, 다양한 후가공</p>
+              <p>미도인쇄에서 경험하세요</p>
+            </div>
+            <div class="slide-image">
+              <img src="slider-img2.png" alt="샘플 이미지" style="max-width:420px;"/>
+            </div>
+          </div>
+        </div>
+        <!-- 필요시 슬라이드 추가 -->
+      </div>
+      <!-- 좌우 버튼 -->
+      <button class="slider-btn prev" id="sliderPrev">&#10094;</button>
+      <button class="slider-btn next" id="sliderNext">&#10095;</button>
+      <!-- 점 네비게이션 -->
+      <div class="slider-dots" id="sliderDots"></div>
+    </div>
+
+    <script>
+        // 메뉴와 서브메뉴 섹션 연동 (JS로 섹션 표시 유지)
+        const nav = document.getElementById('mainNav');
+        const submenuWrapper = document.getElementById('submenuWrapper');
+        const menuItems = nav.querySelectorAll('.menu-item');
+        const submenuSections = submenuWrapper.querySelectorAll('.submenu-section');
+        let activeIndex = 0; // 기본은 바코드라벨
+
+        function setActiveSection(index) {
+            submenuSections.forEach((section, i) => {
+                if (i === index) section.classList.add('active');
+                else section.classList.remove('active');
+            });
+            activeIndex = index;
+        }
+
+        menuItems.forEach((item, idx) => {
+            item.addEventListener('mouseenter', () => {
+                setActiveSection(idx);
+                submenuWrapper.style.display = 'block';
+            });
+            item.addEventListener('focusin', () => {
+                setActiveSection(idx);
+                submenuWrapper.style.display = 'block';
+            });
+        });
+
+        // nav, submenu-wrapper에 hover/포커스되어 있으면 서브메뉴 보이게
+        function showSubmenu() {
+            submenuWrapper.style.display = 'block';
+        }
+        function hideSubmenu() {
+            submenuWrapper.style.display = 'none';
+        }
+
+        nav.addEventListener('mouseenter', showSubmenu);
+        nav.addEventListener('focusin', showSubmenu);
+        submenuWrapper.addEventListener('mouseenter', showSubmenu);
+        submenuWrapper.addEventListener('focusin', showSubmenu);
+
+        nav.addEventListener('mouseleave', function() {
+            // submenu-wrapper에도 마우스 없을 때만 숨김
+            setTimeout(function() {
+                if (!submenuWrapper.matches(':hover') && !nav.matches(':hover')) {
+                    hideSubmenu();
+                }
+            }, 50);
+        });
+        submenuWrapper.addEventListener('mouseleave', function() {
+            setTimeout(function() {
+                if (!submenuWrapper.matches(':hover') && !nav.matches(':hover')) {
+                    hideSubmenu();
+                }
+            }, 50);
+        });
+
+        // 처음에는 첫 번째 섹션 활성화 (필요 없으면 아래 한 줄 삭제)
+        setActiveSection(0);
+        // 그리고 처음엔 submenu 숨김
+        hideSubmenu();
+
+        // ====== 슬라이더 ======
+        // 순수 JS 슬라이더
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('sliderDots');
+        let currentSlide = 0;
+        let autoTimer = null;
+
+        // 점 네비게이션 만들기
+        function createDots() {
+          dotsContainer.innerHTML = '';
+          slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+          });
+        }
+        createDots();
+
+        function showSlide(idx) {
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === idx);
+            dotsContainer.children[i].classList.toggle('active', i === idx);
+          });
+          currentSlide = idx;
+        }
+
+        function goToSlide(idx) {
+          showSlide(idx);
+          resetAuto();
+        }
+
+        document.getElementById('sliderPrev').onclick = () => {
+          let idx = (currentSlide - 1 + slides.length) % slides.length;
+          goToSlide(idx);
+        };
+        document.getElementById('sliderNext').onclick = () => {
+          let idx = (currentSlide + 1) % slides.length;
+          goToSlide(idx);
+        };
+
+        function autoPlay() {
+          autoTimer = setInterval(() => {
+            let idx = (currentSlide + 1) % slides.length;
+            showSlide(idx);
+          }, 4000);
+        }
+        function resetAuto() {
+          if (autoTimer) clearInterval(autoTimer);
+          autoPlay();
+        }
+        autoPlay();
+
+        // 마우스 올리면 자동 넘김 멈춤
+        document.querySelector('.slider-area').addEventListener('mouseenter', () => {
+          if (autoTimer) clearInterval(autoTimer);
+        });
+        document.querySelector('.slider-area').addEventListener('mouseleave', () => {
+          autoPlay();
+        });
+    </script>
 </body>
 </html>
