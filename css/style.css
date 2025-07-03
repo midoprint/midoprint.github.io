@@ -133,7 +133,6 @@ nav {
     text-decoration: none;
     transition: background 0.2s, color 0.2s;
     box-sizing: border-box;
-    background: tra;
 }
 
 .menu-link:hover,
@@ -441,13 +440,13 @@ nav:focus-within .submenu-wrapper,
     border-radius: 15px;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .footer .left{
     display: flex;
     flex-direction: column; /* 세로로 나열 */
     justify-content: center;
-    padding-left: 100px;
 }
 
 .footer-title {
@@ -468,12 +467,21 @@ nav:focus-within .submenu-wrapper,
 }
 
 .footer .middle{
-    display: inline-block;
+    display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.footer .right{
 
+.footer .right1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer .right2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .footer-divider{
@@ -481,6 +489,54 @@ nav:focus-within .submenu-wrapper,
     width: 0.5px;
     height: 150px;
     background: gray;
-    margin: 0 30px 3px 30px;
+    margin: 0 40px 3px 40px;
     vertical-align: middle;
+}
+
+.foot_copy_area{
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    width: 100%;
+}
+.foot_logo{
+    flex: 0 0 auto;
+    margin-right: 24px;
+    display: flex;
+    align-items:flex-start;
+}
+.foot_logo img{
+    width: 50px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+.foot_copy{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.foot_copy_column{
+    margin-top: 3px;
+    font-size: medium;
+    font-weight: 400;
+    color: gray;
+    line-height: 1.7;
+}
+.foot-divider{
+    display: inline-block;
+    width: 0.3px;
+    height: 13px;
+    background: gray;
+    margin: 0 7px 2px 7px;
+    vertical-align: middle;
+}
+.foot_menu_area{
+    
+}
+.foot_menu_inner{
+
+}
+.foot_menu{
+
 }
